@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require("express");
 const { ethers } = require("ethers");
 
@@ -9,7 +10,7 @@ router.post("/", async (req, res) => {
     const message = JSON.stringify({ name, symbol, initialSupply, decimals, rpc });
 
     // gunakan privateKey hanya untuk testing
-    const privateKey = "0xc3dcd626eb26b390164820d254cc11444304675ce88f0a5aa048bcc118b266d7";
+    const privateKey = process.env.LOCAL_SIGNER_KEY;
     const wallet = new ethers.Wallet(privateKey);
     const signature = await wallet.signMessage(message);
 
