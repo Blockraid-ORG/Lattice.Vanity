@@ -8,7 +8,12 @@ const signRoute = require("./routes/sign");
 const app = express();
 app.use(express.json({ limit: "1mb" }));
 
-const origins = ['http://localhost:3000', process.env.CLIENT_ORIGIN].filter(Boolean);
+const origins = [
+  'http://localhost:3000',
+  process.env.CLIENT_ORIGIN,
+  'https://beta.terravest.capital',
+  'alpha.terravest.capital'
+].filter(Boolean);
 app.use(cors({ origin: origins }));
 
 app.use("/predict", verifySigner, predictRoute);
