@@ -12,7 +12,7 @@ const origins = [
   'http://localhost:3000',
   process.env.CLIENT_ORIGIN,
   'https://beta.terravest.capital',
-  'alpha.terravest.capital'
+  'https://alpha.terravest.capital'
 ].filter(Boolean);
 app.use(cors({ origin: origins }));
 
