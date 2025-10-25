@@ -9,7 +9,18 @@ const verifySigner = (req, res, next) =>{
       return res.status(400).json({ error: "Missing address, signature, or message" });
     }
 
-    const recoveredAddress = ethers.verifyMessage(message, signature);
+    let messageForVerify = message;
+
+    if (typeof message === "string" && !message.startsWith("0x")) {
+      try {
+        messageForVerify = ethers.hexlify(ethers.toUtf8Bytes(message));
+      } catch (e) {
+        console.error("Error converting message to hex:", e);
+        return res.status(400).json({ error: "Invalid message format" });
+      }
+    }
+
+    const recoveredAddress = ethers.verifyMessage(messageForVerify, signature);
 
     if (recoveredAddress.toLowerCase() !== address.toLowerCase()) {
       return res.status(401).json({ error: "Invalid signature" });
