@@ -1,0 +1,29 @@
+version: "3.8"
+
+services:
+  launchpad-vanity:
+    container_name: launchpad-vanity
+
+    build:
+      context: .
+      dockerfile: Dockerfile
+
+    restart: unless-stopped
+
+    env_file:
+      - .env
+
+    networks:
+      - production
+
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=production"
+      - "traefik.http.routers.launchpad-vanity.rule=Host(`launchpad-vanity.terravest.capital`)"
+      - "traefik.http.routers.launchpad-vanity.entrypoints=websecure"
+      - "traefik.http.routers.launchpad-vanity.tls.certresolver=letsencrypt"
+      - "traefik.http.services.launchpad-vanity.loadbalancer.server.port=3000"
+
+networks:
+  production:
+    external: true
