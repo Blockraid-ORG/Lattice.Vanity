@@ -22,7 +22,7 @@ services:
       - "traefik.http.routers.launchpad-vanity.rule=Host(`launchpad-vanity.terravest.capital`)"
       - "traefik.http.routers.launchpad-vanity.entrypoints=websecure"
       - "traefik.http.routers.launchpad-vanity.tls.certresolver=letsencrypt"
-      - "traefik.http.services.launchpad-vanity.loadbalancer.server.port=3000"
+      - "traefik.http.services.launchpad-vanity.loadbalancer.server.port=3004"
 
 networks:
   production:
